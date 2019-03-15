@@ -8,6 +8,7 @@ import "./index.css";
 const theme = {
   color: {
     gray: "#EFF1F0",
+    gray2: "#bbb",
     text: "#222",
     white: "#fff",
     green: "#6CEC6C"
