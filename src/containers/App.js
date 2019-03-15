@@ -1,31 +1,23 @@
 import React from "react";
-import Header from "../components/Header";
-import MainContent from "../components/MainContent";
 import Expander from "../components/Expander";
-import withToggle from "../hocs/withToggle";
+import Header from "../components/Header";
 import Headline from "../components/Headline";
-
-const ToggleExpander = withToggle(Expander);
+import MainContent from "../components/MainContent";
+import Toggle from "../components/Toggle";
 
 export default function App() {
   return (
     <>
       <Header />
       <MainContent>
-        <Headline>Simple expander</Headline>
-        <Expander
-          toggled
-          onToggle={() => {
-            alert("toggle");
-          }}
-        >
-          Hallo, ich bin die Expander Komponente
-        </Expander>
-
-        <Headline>Expander mit HOC</Headline>
-        <ToggleExpander>
-          Hallo, ich bin die Expander Komponente mit Toggle Logik
-        </ToggleExpander>
+        <Headline>Expander als render prop</Headline>
+        <Toggle
+          render={toggleProps => (
+            <Expander {...toggleProps}>
+              Hallo, ich bin die Expander Komponente
+            </Expander>
+          )}
+        />
       </MainContent>
     </>
   );
