@@ -1,27 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import Button from "./Button";
 import Box from "./Box";
 
-export default class Expander extends Component {
-  state = {
-    expanded: false
-  };
+export default function Expander({ toggled, onToggle, children }) {
+  return (
+    <div>
+      <Button onClick={onToggle}>{toggled ? "Zuklappen" : "Aufklappen"}</Button>
 
-  toggleExpand = () => {
-    this.setState({
-      expanded: !this.state.expanded
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Button onClick={this.toggleExpand}>
-          {this.state.expanded ? "Zuklappen" : "Aufklappen"}
-        </Button>
-
-        {this.state.expanded && <Box>{this.props.children}</Box>}
-      </div>
-    );
-  }
+      {toggled && <Box>{children}</Box>}
+    </div>
+  );
 }
