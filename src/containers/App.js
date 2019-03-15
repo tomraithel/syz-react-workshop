@@ -1,20 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
 import MainContent from "../components/MainContent";
-import Button from "../components/Button";
+import Expander from "../components/Expander";
 
 export default function App() {
   return (
     <>
       <Header />
       <MainContent>
-        <Button
-          onClick={() => {
-            alert("danke!");
-          }}
-        >
-          Klick mich!
-        </Button>
+        <Expander>Hallo, ich bin Text, den man ausklappen kann!</Expander>
       </MainContent>
     </>
   );
