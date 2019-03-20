@@ -1,10 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import Headline from "../components/Headline";
 import Button from "../components/Button";
 import Box from "../components/Box";
-
-import { connect } from "react-redux";
-
+import TextButton from "../components/TextButton";
 import * as actions from "../store/actions/counter";
 
 function Counter({ count, inc, reset }) {
@@ -15,7 +15,7 @@ function Counter({ count, inc, reset }) {
         <Headline>Count: {count}</Headline>
         <Button onClick={() => inc(-1)}>-</Button>
       </Box>
-      <button onClick={() => reset()}>reset</button>
+      <TextButton onClick={() => reset()}>reset</TextButton>
     </>
   );
 }
