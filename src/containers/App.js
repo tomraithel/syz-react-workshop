@@ -9,6 +9,8 @@ import Footer from "../components/Footer";
 import { ColorConsumer } from "../lib/colorContext";
 import Accordion from "../components/Accordion";
 
+import { createStore } from "redux";
+
 const AppWrapper = styled.div`
   ${props => (props.color === "blue" ? "filter: hue-rotate(90deg);" : "")}
 `;
@@ -34,3 +36,34 @@ export default function App() {
     </ColorConsumer>
   );
 }
+
+const initialState = {
+  counter: 0
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "INC":
+      return {
+        ...state,
+        counter: state.counter + action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+const inc = (amount = 1) => ({ type: "INC", payload: amount });
+
+store.dispatch(inc(3));
+store.dispatch(inc(4));
+store.dispatch(inc(2));
