@@ -4,6 +4,7 @@ import App from "./containers/App";
 import { ThemeProvider } from "styled-components";
 
 import "./index.css";
+import { ColorProvider } from "./lib/colorContext";
 
 const theme = {
   color: {
@@ -16,9 +17,11 @@ const theme = {
 };
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
+  <ColorProvider>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </ColorProvider>,
 
   document.getElementById("root")
 );

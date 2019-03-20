@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ColorConsumer } from "../lib/colorContext";
 
 const Wrapper = styled.div`
   font-size: 0.8rem;
@@ -9,7 +10,21 @@ const Wrapper = styled.div`
 export default function FooterContent() {
   return (
     <Wrapper>
-      App color: <strong>green</strong>
+      <ColorConsumer>
+        {value => (
+          <>
+            App color:{" "}
+            <button
+              onClick={e => {
+                e.preventDefault();
+                value.toggleColor();
+              }}
+            >
+              {value.color}
+            </button>
+          </>
+        )}
+      </ColorConsumer>
     </Wrapper>
   );
 }
