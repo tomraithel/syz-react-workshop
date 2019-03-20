@@ -6,6 +6,7 @@ const MainContentWrapper = styled.section`
   max-width: 800px;
   margin: 0 auto;
   padding: 50px;
+  min-height: calc(100vh - 160px);
 `;
 
 export default function MainContent({ children }) {
