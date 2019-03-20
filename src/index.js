@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./containers/App";
+
 import { ThemeProvider } from "styled-components";
+import { ColorProvider } from "./lib/colorContext";
+import { Provider } from "react-redux";
+import store from "./store";
 
 import "./index.css";
-import { ColorProvider } from "./lib/colorContext";
 
 const theme = {
   color: {
@@ -17,11 +20,13 @@ const theme = {
 };
 
 ReactDOM.render(
-  <ColorProvider>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </ColorProvider>,
+  <Provider store={store}>
+    <ColorProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </ColorProvider>
+  </Provider>,
 
   document.getElementById("root")
 );
