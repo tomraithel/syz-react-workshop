@@ -9,6 +9,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   color: ${props => props.theme.color.text};
+  height: 100px;
 `;
 
 export default function Header() {
