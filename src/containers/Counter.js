@@ -5,13 +5,18 @@ import Box from "../components/Box";
 
 import { connect } from "react-redux";
 
-function Counter({ count, inc }) {
+import * as actions from "../store/actions/counter";
+
+function Counter({ count, inc, reset }) {
   return (
-    <Box>
-      <Button onClick={() => inc(1)}>+</Button>
-      <Headline>Count: {count}</Headline>
-      <Button onClick={() => inc(-1)}>-</Button>
-    </Box>
+    <>
+      <Box>
+        <Button onClick={() => inc(1)}>+</Button>
+        <Headline>Count: {count}</Headline>
+        <Button onClick={() => inc(-1)}>-</Button>
+      </Box>
+      <button onClick={() => reset()}>reset</button>
+    </>
   );
 }
 
@@ -23,7 +28,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    inc: amount => dispatch({ type: "INC", payload: amount })
+    inc: amount => dispatch(actions.inc(amount)),
+    reset: () => dispatch(actions.reset())
   };
 };
 
