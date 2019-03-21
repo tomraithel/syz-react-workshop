@@ -3,8 +3,10 @@ import ReactDOM from "react-dom";
 import App from "./containers/App";
 
 import { ThemeProvider } from "styled-components";
-import { ColorProvider } from "./lib/colorContext";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
+import { ColorProvider } from "./lib/colorContext";
 import store from "./store";
 
 import "./index.css";
@@ -20,13 +22,15 @@ const theme = {
 };
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ColorProvider>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </ColorProvider>
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <ColorProvider>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </ColorProvider>
+    </Provider>
+  </BrowserRouter>,
 
   document.getElementById("root")
 );
