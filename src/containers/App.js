@@ -7,6 +7,9 @@ import { ColorConsumer } from "../lib/colorContext";
 import Counter from "./Counter";
 
 const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   ${props => (props.color === "blue" ? "filter: hue-rotate(90deg);" : "")}
 `;
 
