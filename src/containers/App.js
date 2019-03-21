@@ -24,11 +24,17 @@ export default function App() {
           <Header />
           <NavBar>
             <Link to="/">Counter</Link>
-            <Link to="/about">About</Link>
+            <Link to="/about/1">About 1</Link>
+            <Link to="/about/2">About 2</Link>
           </NavBar>
           <MainContent>
             <Route exact path="/" component={Counter} />
-            <Route path="/about" component={Footer} />
+            <Route
+              path="/about/:id"
+              render={({ match }) => (
+                <span>{JSON.stringify(match.params)}</span>
+              )}
+            />
           </MainContent>
           <Footer />
         </AppWrapper>
