@@ -8,6 +8,7 @@ import MainContent from "../components/MainContent";
 import { ColorConsumer } from "../lib/colorContext";
 import Counter from "./Counter";
 import NavBar from "../components/NavBar";
+import Headline from "../components/Headline";
 
 const AppWrapper = styled.div`
   display: flex;
@@ -24,15 +25,26 @@ export default function App() {
           <Header />
           <NavBar>
             <Link to="/">Counter</Link>
-            <Link to="/about/1">About 1</Link>
-            <Link to="/about/2">About 2</Link>
+            <Link to="/nested/1">Nested 1</Link>
+            <Link to="/nested/2">Nested 2</Link>
           </NavBar>
+          <Route
+            path="/nested/:id"
+            render={({ match }) => (
+              <NavBar>
+                <Link to={`${match.url}/foo`}>Foo</Link>
+                <Link to={`${match.url}/bar`}>Bar</Link>
+              </NavBar>
+            )}
+          />
           <MainContent>
             <Route exact path="/" component={Counter} />
             <Route
-              path="/about/:id"
+              path="/nested/:id/:filter"
               render={({ match }) => (
-                <span>{JSON.stringify(match.params)}</span>
+                <Headline>
+                  Id: {match.params.id}, Filter: {match.params.filter}
+                </Headline>
               )}
             />
           </MainContent>
