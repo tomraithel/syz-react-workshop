@@ -6,6 +6,9 @@ const Wrapper = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
+  + nav {
+    box-shadow: ${props => props.theme.color.gray2} 0 1px 0 inset;
+  }
   > * {
     padding: 0 20px;
     color: ${props => props.theme.color.text};
