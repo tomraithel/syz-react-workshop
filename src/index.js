@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./containers/App";
 import { ThemeProvider } from "styled-components";
-
 import "./index.css";
 
 const theme = {
