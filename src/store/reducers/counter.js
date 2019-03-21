@@ -1,4 +1,4 @@
-import { INC, RESET } from "../actions/counter";
+import { INC, RESET, SET } from "../actions/counter";
 
 const initialState = {
   value: 0
@@ -15,6 +15,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         value: 0
+      };
+    case SET:
+      return {
+        ...state,
+        value: action.payload
       };
     default:
       return state;

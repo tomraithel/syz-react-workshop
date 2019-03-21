@@ -7,7 +7,7 @@ import Box from "../components/Box";
 import TextButton from "../components/TextButton";
 import * as actions from "../store/actions/counter";
 
-function Counter({ count, inc, reset }) {
+function Counter({ count, inc, reset, generateRandom }) {
   return (
     <>
       <Box>
@@ -15,7 +15,8 @@ function Counter({ count, inc, reset }) {
         <Headline>Count: {count}</Headline>
         <Button onClick={() => inc(-1)}>-</Button>
       </Box>
-      <TextButton onClick={() => reset()}>reset</TextButton>
+      <TextButton onClick={() => reset()}>reset</TextButton>{" "}
+      <TextButton onClick={() => generateRandom()}>random number</TextButton>
     </>
   );
 }
@@ -29,7 +30,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     inc: amount => dispatch(actions.inc(amount)),
-    reset: () => dispatch(actions.reset())
+    reset: () => dispatch(actions.reset()),
+    generateRandom: () => dispatch(actions.setRandom())
   };
 };
 
