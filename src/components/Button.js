@@ -10,11 +10,11 @@ const ButtonWrapper = styled.button`
   font-size: 16px;
 `;
 
-export default function Button({ onClick, children }) {
+export default function Button({ onClick, children, ...rest }) {
   return (
     <ButtonWrapper
+      {...rest}
       onClick={e => {
-        e.preventDefault();
         if (onClick) {
           onClick();
         }
