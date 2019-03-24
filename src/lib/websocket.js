@@ -2,52 +2,71 @@ import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import { API_BASE_URL } from "./api";
 
-export default function(username) {
-  return new Promise((resolve, reject) => {
-    let stompClient = null;
+let stompClient = null;
 
-    const send = (channel, message) => {
-      stompClient.send("/app/" + channel, {}, JSON.stringify(message));
-    };
+const send = (channel, message) => {
+  if (stompClient) {
+    const { username } = stompClient.__data;
+    stompClient.send(
+      "/app/" + channel,
+      {},
+      JSON.stringify({ ...message, sender: username })
+    );
+  }
+};
 
-    const onMessage = callback => {
+export default {
+  leave() {
+    if (stompClient) {
+      stompClient.disconnect();
+      stompClient = null;
+    }
+  },
+
+  subscribe(callback) {
+    if (stompClient) {
       // Subscribe to the Public Topic
       stompClient.subscribe("/topic/public", payload => {
         callback(JSON.parse(payload.body));
       });
-    };
+    }
+  },
 
-    const onConnected = () => {
-      // Tell your username to the server
-      send("chat.addUser", { sender: username, type: "JOIN" });
+  sendMessage(messageContent) {
+    if (messageContent) {
+      const chatMessage = {
+        content: messageContent,
+        type: "CHAT"
+      };
 
-      resolve({
-        sendMessage,
-        onMessage
-      });
-    };
+      send("chat.sendMessage", chatMessage);
+    }
+  },
 
-    const onError = error => {
-      reject(error);
-    };
+  join(username) {
+    this.leave();
 
-    const sendMessage = messageContent => {
-      if (messageContent && stompClient) {
-        const chatMessage = {
-          sender: username,
-          content: messageContent,
-          type: "CHAT"
-        };
+    return new Promise((resolve, reject) => {
+      const onConnected = () => {
+        // Send, that we joined
+        setTimeout(() => {
+          send("chat.addUser", { type: "JOIN" });
+        });
 
-        send("chat.sendMessage", chatMessage);
-      }
-    };
+        resolve();
+      };
 
-    // TODO - use real url
-    const socket = new SockJS(API_BASE_URL + "/ws");
+      const onError = error => {
+        reject(error);
+      };
+      const socket = new SockJS(API_BASE_URL + "/ws");
 
-    stompClient = Stomp.over(socket);
-    stompClient.debug = null;
-    stompClient.connect({}, onConnected, onError);
-  });
-}
+      stompClient = Stomp.over(socket);
+      stompClient.debug = null;
+      stompClient.connect({}, onConnected, onError);
+      stompClient.__data = {
+        username
+      };
+    });
+  }
+};
