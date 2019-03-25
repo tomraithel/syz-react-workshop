@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders happy 1`] = `
+<div>
+  😄
+</div>
+`;
+
+exports[`Renders sad 1`] = `
+<div>
+  🙁
+</div>
+`;
